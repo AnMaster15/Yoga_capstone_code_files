@@ -1,0 +1,33 @@
+================================================================================
+YOGA STRESS REDUCTION ANALYSIS REPORT
+================================================================================
+
+Pre-yoga data: /Users/anchitmehra/Documents/coding/projects/Final_merged_dataset_with_weighted_stress.csv
+Post-yoga data: /Users/anchitmehra/Documents/coding/projects/synthetic_dataset.csv
+
+STRESS SCORE STATISTICS
+------------------------------
+Before yoga mean: 0.3266
+After yoga mean: 0.3250
+Difference: 0.0016
+Percent reduction: 0.48%
+
+STATISTICAL SIGNIFICANCE
+------------------------------
+p-value: 0.5582
+Significance: Not significant (p>=0.05)
+
+KEY CHANGES IN BIOMARKERS
+------------------------------
+BVP_Mean: -485.51% change in importance
+EMG_Skewness: -108.86% change in importance
+Wrist_EDA_Std: 99.35% change in importance
+Beta2 Fp 1 - Fp 2: 98.13% change in importance
+SDNN: 98.00% change in importance
+
+CONCLUSION
+------------------------------
+Yoga practice resulted in a 0.48% reduction in stress levels.
+While a reduction was observed, it was not statistically significant, suggesting more data may be needed.
+
+================================================================================
