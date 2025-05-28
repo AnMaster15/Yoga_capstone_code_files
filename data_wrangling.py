@@ -11,8 +11,8 @@ import cvxEDA
 # E4 (wrist) Sampling Frequencies
 fs_dict = {'ACC': 32, 'BVP': 64, 'EDA': 4, 'TEMP': 4, 'label': 700, 'Resp': 700}
 WINDOW_IN_SECONDS = 30
-label_dict = {'baseline': 1, 'stress': 2, 'amusement': 0}
-int_to_label = {1: 'baseline', 2: 'stress', 0: 'amusement'}
+label_dict = {'baseline': 1, 'stress': 2,'amusement': 0, 'meditation': 3,'meditation2': 4},
+int_to_label = {1: 'baseline', 2: 'stress', 0: 'amusement', 3:'meditation',4 :'meditation2'}
 feat_names = None
 savePath = 'data'
 subject_feature_path = '/subject_feats'
@@ -156,10 +156,10 @@ def compute_features(e4_data_dict, labels, norm_type=None):
     df['label'] = df['label'].fillna(method='bfill')
     df.reset_index(drop=True, inplace=True)
 
-    if norm_type is 'std':
+    if norm_type == 'std':
         # std norm
-        df = (df - df.mean()) / df.std()
-    elif norm_type is 'minmax':
+        df = (df - df.mean()) / df.std(axis=0)
+    elif norm_type == 'minmax':
         # minmax norm
         df = (df - df.min()) / (df.max() - df.min())
 
@@ -206,7 +206,8 @@ def get_samples(data, n_windows, label):
             feat_names = []
             for row in x.index:
                 for col in x.columns:
-                    feat_names.append('_'.join([row, col]))
+                    feat_names.append('_'.join([str(row), str(col)]))
+
 
         # sample df
         wdf = pd.DataFrame(x.values.flatten()).T
@@ -226,7 +227,7 @@ def make_patient_data(subject_id):
     global WINDOW_IN_SECONDS
 
     # Make subject data object for Sx
-    subject = SubjectData(main_path='data/WESAD', subject_number=subject_id)
+    subject = SubjectData(main_path='WESAD-2', subject_number=subject_id)
 
     # Empatica E4 data - now with resp
     e4_data_dict = subject.get_wrist_data()
@@ -274,7 +275,7 @@ def combine_files(subjects):
 
     df = pd.concat(df_list)
 
-    df['label'] = (df['0'].astype(str) + df['1'].astype(str) + df['2'].astype(str)).apply(lambda x: x.index('1'))
+    df['label'] = (df['0'].astype(str) + df['1'].astype(str) + df['2'].astype(str)).apply(lambda x: x.index('1') if '1' in x else -1)
     df.drop(['0', '1', '2'], axis=1, inplace=True)
 
     df.reset_index(drop=True, inplace=True)

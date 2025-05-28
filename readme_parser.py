@@ -52,7 +52,7 @@ class rparser:
         }
     }
     
-    DATA_PATH = 'data/WESAD/'
+    DATA_PATH = 'WESAD-2/'
     parse_file_suffix = '_readme.txt'
     
     
@@ -126,3 +126,5 @@ class rparser:
 
         merged_df.to_csv('data/m14_merged.csv')
         
+if __name__ == "__main__":
+    parser = rparser()
